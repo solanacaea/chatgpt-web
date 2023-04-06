@@ -3,7 +3,9 @@ export default {
     add: '新增',
     addSuccess: '新增成功',
     edit: '編輯',
+    editing: '編輯中',
     editSuccess: '編輯成功',
+    editFailed: '編輯失敗',
     delete: '刪除',
     deleteSuccess: '刪除成功',
     save: '儲存',
@@ -41,8 +43,8 @@ export default {
     exportSuccess: '儲存成功',
     exportFailed: '儲存失敗',
     usingContext: '上下文模式',
-    turnOnContext: '啟用上下文模式，在此模式下，發送訊息會包含之前的聊天記錄。',
-    turnOffContext: '關閉上下文模式，在此模式下，發送訊息不會包含之前的聊天記錄。',
+    turnOnContext: '啟用上下文模式', //，在此模式下，發送訊息會包含之前的聊天記錄。
+    turnOffContext: '關閉上下文模式', //，在此模式下，發送訊息不會包含之前的聊天記錄。
     deleteMessage: '刪除訊息',
     deleteMessageConfirm: '是否刪除此訊息?',
     deleteHistoryConfirm: '確定刪除此紀錄?',
@@ -68,7 +70,7 @@ export default {
     timeout: '逾時',
     socks: 'Socks',
     httpsProxy: 'HTTPS Proxy',
-    balance: 'API余額',
+    balance: '今日用量',
   },
   store: {
     siderButton: '提示詞商店',

@@ -1,5 +1,5 @@
 import type { AxiosProgressEvent, GenericAbortSignal } from 'axios'
-import { post } from '@/utils/request'
+import { get, post } from '@/utils/request'
 import { useSettingStore } from '@/store'
 
 export function fetchChatAPI<T = any>(
@@ -23,15 +23,21 @@ export function fetchChatConfig<T = any>() {
 export function fetchChatAPIProcess<T = any>(
   params: {
     prompt: string
-    options?: { conversationId?: string; parentMessageId?: string }
+    options: Chat.ConversationRequest
     signal?: GenericAbortSignal
     onDownloadProgress?: (progressEvent: AxiosProgressEvent) => void },
 ) {
   const settingStore = useSettingStore()
-
   return post<T>({
-    url: '/chat-process',
-    data: { prompt: params.prompt, options: params.options, systemMessage: settingStore.systemMessage },
+    url: '/ask',
+    data: {
+      question: params.prompt,
+      conversationId: params.options.conversationId,
+      msgId: params.options.msgId,
+      context: [],
+      questionType: params.options.questionType,
+      systemMessage: settingStore.systemMessage,
+    },
     signal: params.signal,
     onDownloadProgress: params.onDownloadProgress,
   })
@@ -47,5 +53,25 @@ export function fetchVerify<T>(token: string) {
   return post<T>({
     url: '/verify',
     data: { token },
+  })
+}
+
+export function signin<T>(params: any) {
+  return post<T>({
+    url: '/auth/signin',
+    data: params,
+  })
+}
+
+export function meInfo<T>() {
+  return get<T>({
+    url: '/user/me',
+  })
+}
+
+export function updateMe<T>(name: string) {
+  return post<T>({
+    url: '/user/update/name',
+    data: { name },
   })
 }

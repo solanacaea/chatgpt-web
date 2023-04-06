@@ -32,6 +32,12 @@ const routes: RouteRecordRaw[] = [
   },
 
   {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/exception/login/login.vue'),
+  },
+
+  {
     path: '/:pathMatch(.*)*',
     name: 'notFound',
     redirect: '/404',

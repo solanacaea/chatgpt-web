@@ -55,8 +55,52 @@ dataSources.value.forEach((item, index) => {
     updateChatSome(+uuid, index, { loading: false })
 })
 
+// 表示全局唯一标识符 (GUID)。
+function fCreaetGuid() {
+  let arr = ''
+  let i = 32
+  while (i--)
+    arr += Math.floor(Math.random() * 16.0).toString(30)
+  arr = `${arr.slice(0, 8)}-${arr.slice(8, 12)}-${arr.slice(12, 16)}-${arr.slice(16, 20)}-${arr.slice(20, 32)}`
+  arr = arr.replace(/,/g, '')
+  return arr
+}
+
 function handleSubmit() {
   onConversation()
+}
+
+function getReqContext(): Chat.ContextRequest[] {
+  let last5 = []
+  if (conversationList.value.length > 5) {
+    const startPos = conversationList.value.length - 5
+    last5 = conversationList.value.slice(startPos)
+  }
+  else {
+    last5 = conversationList.value
+  }
+  const q_context: Chat.ContextRequest | { role: string; content: string }[] = []
+  last5.forEach((item) => {
+    if (item.text !== '' && item.text !== '暂时无法回答，请稍后再试。') {
+      const maxContextLength = 300
+      let currTxt = item.text
+      if (currTxt.length > maxContextLength)
+        currTxt = item.text.slice(0, maxContextLength)
+      if (item.inversion) {
+        q_context.push({
+          role: 'user',
+          content: currTxt,
+        })
+      }
+      else {
+        q_context.push({
+          role: 'assistant',
+          content: currTxt,
+        })
+      }
+    }
+  })
+  return q_context
 }
 
 async function onConversation() {
@@ -70,6 +114,12 @@ async function onConversation() {
 
   controller = new AbortController()
 
+  const options: Chat.ConversationRequest = {
+    conversationId: uuid,
+    questionType: usingContext.value ? 'chatWithContext' : '',
+    msgId: fCreaetGuid(),
+  }
+
   addChat(
     +uuid,
     {
@@ -78,7 +128,7 @@ async function onConversation() {
       inversion: true,
       error: false,
       conversationOptions: null,
-      requestOptions: { prompt: message, options: null },
+      requestOptions: { prompt: message, options },
     },
   )
   scrollToBottom()
@@ -86,11 +136,12 @@ async function onConversation() {
   loading.value = true
   prompt.value = ''
 
-  let options: Chat.ConversationRequest = {}
   const lastContext = conversationList.value[conversationList.value.length - 1]?.conversationOptions
 
-  if (lastContext && usingContext.value)
-    options = { ...lastContext }
+  if (lastContext && usingContext.value) {
+    // options = { ...lastContext }
+    options.context = getReqContext()
+  }
 
   addChat(
     +uuid,
@@ -128,18 +179,18 @@ async function onConversation() {
               dataSources.value.length - 1,
               {
                 dateTime: new Date().toLocaleString(),
-                text: lastText + (data.text ?? ''),
+                text: lastText + (data.message ?? ''),
                 inversion: false,
                 error: false,
                 loading: true,
-                conversationOptions: { conversationId: data.conversationId, parentMessageId: data.id },
+                conversationOptions: { conversationId: data.conversationId, parentMessageId: data.msgId },
                 requestOptions: { prompt: message, options: { ...options } },
               },
             )
 
             if (openLongReply && data.detail.choices[0].finish_reason === 'length') {
-              options.parentMessageId = data.id
-              lastText = data.text
+              options.parentMessageId = data.msgId
+              lastText = data.message
               message = ''
               return fetchChatAPIOnce()
             }
@@ -147,7 +198,7 @@ async function onConversation() {
             scrollToBottomIfAtBottom()
           }
           catch (error) {
-            //
+            console.log(error)
           }
         },
       })
@@ -158,7 +209,6 @@ async function onConversation() {
   }
   catch (error: any) {
     const errorMessage = error?.message ?? t('common.wrong')
-
     if (error.message === 'canceled') {
       updateChatSome(
         +uuid,
@@ -215,8 +265,11 @@ async function onRegenerate(index: number) {
   const { requestOptions } = dataSources.value[index]
 
   let message = requestOptions?.prompt ?? ''
-
-  let options: Chat.ConversationRequest = {}
+  let options: Chat.ConversationRequest = {
+    conversationId: uuid,
+    questionType: usingContext.value ? 'chatWithContext' : '',
+    msgId: fCreaetGuid(),
+  }
 
   if (requestOptions.options)
     options = { ...requestOptions.options }
@@ -259,18 +312,18 @@ async function onRegenerate(index: number) {
               index,
               {
                 dateTime: new Date().toLocaleString(),
-                text: lastText + (data.text ?? ''),
+                text: lastText + (data.message ?? ''),
                 inversion: false,
                 error: false,
                 loading: true,
-                conversationOptions: { conversationId: data.conversationId, parentMessageId: data.id },
+                conversationOptions: { conversationId: data.conversationId, parentMessageId: data.msgId },
                 requestOptions: { prompt: message, ...options },
               },
             )
 
             if (openLongReply && data.detail.choices[0].finish_reason === 'length') {
-              options.parentMessageId = data.id
-              lastText = data.text
+              options.parentMessageId = data.msgId
+              lastText = data.message
               message = ''
               return fetchChatAPIOnce()
             }

@@ -1,15 +1,20 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { NButton, NInput, NPopconfirm, NSelect, useMessage } from 'naive-ui'
+import { NButton, NInput, NPopconfirm, NSelect, NText, useMessage } from 'naive-ui'
 import type { Language, Theme } from '@/store/modules/app/helper'
 import { SvgIcon } from '@/components/common'
 import { useAppStore, useUserStore } from '@/store'
+import { getRemoteState, setDefaultState } from '@/store/modules/user/helper'
 import type { UserInfo } from '@/store/modules/user/helper'
 import { getCurrentDate } from '@/utils/functions'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
+import { updateMe } from '@/api'
 
 const appStore = useAppStore()
+const remoteStore = await getRemoteState()
+setDefaultState(remoteStore)
+
 const userStore = useUserStore()
 
 const { isMobile } = useBasicLayout()
@@ -20,11 +25,14 @@ const theme = computed(() => appStore.theme)
 
 const userInfo = computed(() => userStore.userInfo)
 
-const avatar = ref(userInfo.value.avatar ?? '')
-
+// const userInfo = getLocalState()
+// const avatar = userInfo.userInfo.avatar
 const name = ref(userInfo.value.name ?? '')
-
-const description = ref(userInfo.value.description ?? '')
+// const description = userInfo.userInfo.description
+const usage = ref(userInfo.value.usage ?? '')
+// const avatar = ref(userInfo.avatar ?? '')
+// const name = ref(userInfo.name ?? '')
+// const description = ref(userInfo.description ?? '')
 
 const language = computed({
   get() {
@@ -59,9 +67,33 @@ const languageOptions: { label: string; key: Language; value: Language }[] = [
   { label: 'English', key: 'en-US', value: 'en-US' },
 ]
 
-function updateUserInfo(options: Partial<UserInfo>) {
-  userStore.updateUserInfo(options)
-  ms.success(t('common.success'))
+// function updateUserInfo(options: Partial<UserInfo>) {
+//   userStore.updateUserInfo(options)
+//   ms.success(t('common.success'))
+// }
+
+const loading = ref(false)
+async function updateUserInfo(options: Partial<UserInfo>) {
+  ms.loading(t('common.editing'))
+  loading.value = true
+  try {
+    const { success, message } = await updateMe(options.name)
+    if (success) {
+      ms.success(t('common.editSuccess'))
+      // userInfo.value.usage = '90/100'
+      userInfo.value.name = options.name
+      setDefaultState(userInfo.value)
+    }
+    else {
+      ms.error(t('common.editFailed'))
+    }
+  }
+  catch (error) {
+    ms.error(t('common.editFailed'))
+  }
+  finally {
+    loading.value = false
+  }
 }
 
 function handleReset() {
@@ -123,7 +155,7 @@ function handleImportButtonClick(): void {
 <template>
   <div class="p-4 space-y-5 min-h-[200px]">
     <div class="space-y-6">
-      <div class="flex items-center space-x-4">
+      <!-- <div class="flex items-center space-x-4">
         <span class="flex-shrink-0 w-[100px]">{{ $t('setting.avatarLink') }}</span>
         <div class="flex-1">
           <NInput v-model:value="avatar" placeholder="" />
@@ -131,26 +163,27 @@ function handleImportButtonClick(): void {
         <NButton size="tiny" text type="primary" @click="updateUserInfo({ avatar })">
           {{ $t('common.save') }}
         </NButton>
-      </div>
+      </div> -->
       <div class="flex items-center space-x-4">
         <span class="flex-shrink-0 w-[100px]">{{ $t('setting.name') }}</span>
         <div class="w-[200px]">
           <NInput v-model:value="name" placeholder="" />
         </div>
-        <NButton size="tiny" text type="primary" @click="updateUserInfo({ name })">
+        <NButton size="tiny" text type="primary" :loading="loading" :disabled="loading"
+                 @click="updateUserInfo({ name })" >
           {{ $t('common.save') }}
         </NButton>
       </div>
       <div class="flex items-center space-x-4">
-        <span class="flex-shrink-0 w-[100px]">{{ $t('setting.description') }}</span>
+        <span class="flex-shrink-0 w-[100px]">{{ $t('setting.balance') }}</span>
         <div class="flex-1">
-          <NInput v-model:value="description" placeholder="" />
+          <NText v-text="usage" />
         </div>
-        <NButton size="tiny" text type="primary" @click="updateUserInfo({ description })">
+        <!-- <NButton size="tiny" text type="primary" @click="updateUserInfo({ usage })">
           {{ $t('common.save') }}
-        </NButton>
+        </NButton> -->
       </div>
-      <div
+      <!-- <div
         class="flex items-center space-x-4"
         :class="isMobile && 'items-start'"
       >
@@ -184,11 +217,13 @@ function handleImportButtonClick(): void {
             {{ $t('chat.clearHistoryConfirm') }}
           </NPopconfirm>
         </div>
-      </div>
+      </div> -->
       <div class="flex items-center space-x-4">
         <span class="flex-shrink-0 w-[100px]">{{ $t('setting.theme') }}</span>
         <div class="flex flex-wrap items-center gap-4">
           <template v-for="item of themeOptions" :key="item.key">
+            <!-- <n-tooltip placement="bottom" trigger="hover">
+              <template #trigger> -->
             <NButton
               size="small"
               :type="item.key === theme ? 'primary' : undefined"
@@ -198,6 +233,9 @@ function handleImportButtonClick(): void {
                 <SvgIcon :icon="item.icon" />
               </template>
             </NButton>
+              <!-- </template>
+              <span>{{ item.label }}</span>
+            </n-tooltip> -->
           </template>
         </div>
       </div>
@@ -212,12 +250,12 @@ function handleImportButtonClick(): void {
           />
         </div>
       </div>
-      <div class="flex items-center space-x-4">
+      <!-- <div class="flex items-center space-x-4">
         <span class="flex-shrink-0 w-[100px]">{{ $t('setting.resetUserInfo') }}</span>
         <NButton size="small" @click="handleReset">
           {{ $t('common.reset') }}
         </NButton>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

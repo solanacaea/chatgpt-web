@@ -4,6 +4,9 @@ dependencies:
   '@traptitech/markdown-it-katex':
     specifier: ^3.6.0
     version: 3.6.0
+  '@vicons/ionicons5':
+    specifier: ^0.12.0
+    version: 0.12.0
   '@vueuse/core':
     specifier: ^9.13.0
     version: 9.13.0(vue@3.2.47)
@@ -22,9 +25,18 @@ dependencies:
   naive-ui:
     specifier: ^2.34.3
     version: 2.34.3(vue@3.2.47)
+  nprogress:
+    specifier: ^0.2.0
+    version: 0.2.0
   pinia:
     specifier: ^2.0.33
     version: 2.0.33(typescript@4.9.5)(vue@3.2.47)
+  store:
+    specifier: ^2.0.12
+    version: 2.0.12
+  vicons:
+    specifier: ^0.0.1
+    version: 0.0.1
   vue:
     specifier: ^3.2.47
     version: 3.2.47
@@ -2290,6 +2302,10 @@ packages:
       '@typescript-eslint/types': 5.54.0
       eslint-visitor-keys: 3.3.0
     dev: true
+
+  /@vicons/ionicons5@0.12.0:
+    resolution: {integrity: sha512-Iy1EUVRpX0WWxeu1VIReR1zsZLMc4fqpt223czR+Rpnrwu7pt46nbnC2ycO7ItI/uqDLJxnbcMC7FujKs9IfFA==}
+    dev: false
 
   /@vitejs/plugin-vue@4.0.0(vite@4.2.0)(vue@3.2.47):
     resolution: {integrity: sha512-e0X4jErIxAB5oLtDqbHvHpJe/uWNkdpYV83AOG2xo2tEVSzCzewgJMtREZM30wXnM5ls90hxiOtAuVU6H5JgbA==}
@@ -5188,6 +5204,10 @@ packages:
       path-key: 4.0.0
     dev: true
 
+  /nprogress@0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
+    dev: false
+
   /nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
     dependencies:
@@ -5979,6 +5999,10 @@ packages:
       readable-stream: 3.6.1
     dev: true
 
+  /store@2.0.12:
+    resolution: {integrity: sha512-eO9xlzDpXLiMr9W1nQ3Nfp9EzZieIQc10zPPMP5jsVV7bLOziSFFBP0XoDXACEIFtdI+rIz0NwWVA/QVJ8zJtw==}
+    dev: false
+
   /string-argv@0.3.1:
     resolution: {integrity: sha512-a1uQGz7IyVy9YwhqjZIZu1c8JO8dNIe20xBmSS6qu9kv++k3JGzCVmprbNN5Kn+BgzD5E7YYwg1CcjuJMRNsvg==}
     engines: {node: '>=0.6.19'}
@@ -6442,6 +6466,12 @@ packages:
       vue: ^3.0.11
     dependencies:
       evtd: 0.2.4
+      vue: 3.2.47
+    dev: false
+
+  /vicons@0.0.1:
+    resolution: {integrity: sha512-suYeiVqw/q+ijWBlsGP5vhTUphRqLzCLZKqBHK4iuzlOmP1omKWDWQd+da7rDZU7dyPD5TTV9MXTLCxQt3d7zQ==}
+    dependencies:
       vue: 3.2.47
     dev: false
 
