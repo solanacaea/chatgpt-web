@@ -6,6 +6,7 @@ import { setUserToken } from '@/store/userToken'
 
 // NProgress.configure({ showSpinner: false })
 export const ACCESS_TOKEN = 'Authorization'
+export const ACCESS_TOKEN_USER = 'AuthorizationUser'
 
 export function setupPageGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {

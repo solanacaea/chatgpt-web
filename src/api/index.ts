@@ -75,3 +75,10 @@ export function updateMe<T>(name: string) {
     data: { name },
   })
 }
+
+export function updatePwd<T>(params: any) {
+  return post<T>({
+    url: '/auth/change',
+    data: params,
+  })
+}

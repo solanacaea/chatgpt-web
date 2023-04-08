@@ -6,12 +6,14 @@ const LOCAL_NAME_DEFAULT = 'userStorageDefault'
 
 export interface UserInfo {
   avatar: string
+  username: string
   name: string
   description: string
   usage: String
 }
 
 export interface UserState {
+value: any
   userInfo: UserInfo
 }
 
@@ -32,6 +34,7 @@ export async function getRemoteState(): Promise<UserState> {
   const meState = {
     userInfo: {
       avatar: '',
+      username: me.username,
       name: me.name,
       description: '',
       usage: `${me.usage.askCount}/${me.memberInfo.reqCount}`,

@@ -5,11 +5,9 @@ import type { Language, Theme } from '@/store/modules/app/helper'
 import { SvgIcon } from '@/components/common'
 import { useAppStore, useUserStore } from '@/store'
 import { getRemoteState, setDefaultState } from '@/store/modules/user/helper'
-import type { UserInfo } from '@/store/modules/user/helper'
 import { getCurrentDate } from '@/utils/functions'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
-import { updateMe } from '@/api'
 
 const appStore = useAppStore()
 const remoteStore = await getRemoteState()
@@ -27,7 +25,6 @@ const userInfo = computed(() => userStore.userInfo)
 
 // const userInfo = getLocalState()
 // const avatar = userInfo.userInfo.avatar
-const name = ref(userInfo.value.name ?? '')
 // const description = userInfo.userInfo.description
 const usage = ref(userInfo.value.usage ?? '')
 // const avatar = ref(userInfo.avatar ?? '')
@@ -71,30 +68,6 @@ const languageOptions: { label: string; key: Language; value: Language }[] = [
 //   userStore.updateUserInfo(options)
 //   ms.success(t('common.success'))
 // }
-
-const loading = ref(false)
-async function updateUserInfo(options: Partial<UserInfo>) {
-  ms.loading(t('common.editing'))
-  loading.value = true
-  try {
-    const { success, message } = await updateMe(options.name)
-    if (success) {
-      ms.success(t('common.editSuccess'))
-      // userInfo.value.usage = '90/100'
-      userInfo.value.name = options.name
-      setDefaultState(userInfo.value)
-    }
-    else {
-      ms.error(t('common.editFailed'))
-    }
-  }
-  catch (error) {
-    ms.error(t('common.editFailed'))
-  }
-  finally {
-    loading.value = false
-  }
-}
 
 function handleReset() {
   userStore.resetUserInfo()
@@ -164,16 +137,6 @@ function handleImportButtonClick(): void {
           {{ $t('common.save') }}
         </NButton>
       </div> -->
-      <div class="flex items-center space-x-4">
-        <span class="flex-shrink-0 w-[100px]">{{ $t('setting.name') }}</span>
-        <div class="w-[200px]">
-          <NInput v-model:value="name" placeholder="" />
-        </div>
-        <NButton size="tiny" text type="primary" :loading="loading" :disabled="loading"
-                 @click="updateUserInfo({ name })" >
-          {{ $t('common.save') }}
-        </NButton>
-      </div>
       <div class="flex items-center space-x-4">
         <span class="flex-shrink-0 w-[100px]">{{ $t('setting.balance') }}</span>
         <div class="flex-1">

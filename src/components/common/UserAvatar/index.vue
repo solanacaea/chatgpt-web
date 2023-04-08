@@ -5,6 +5,7 @@ import defaultAvatar from '@/assets/avatar.jpg'
 import { isString } from '@/utils/is'
 import { getRemoteState, setDefaultState } from '@/store/modules/user/helper'
 import { useUserStore } from '@/store'
+import { t } from '@/locales'
 
 const remoteStore = await getRemoteState()
 setDefaultState(remoteStore)
@@ -34,7 +35,7 @@ const userInfo = computed(() => userStore.userInfo)
       </h2>
       <p class="overflow-hidden text-xs text-gray-500 text-ellipsis whitespace-nowrap">
         <span>
-          今日用量: {{ userInfo.usage }}
+          {{ $t('setting.balance') }}: {{ userInfo.usage }}
         </span>
       </p>
       <!-- <p class="overflow-hidden text-xs text-gray-500 text-ellipsis whitespace-nowrap">
