@@ -15,7 +15,6 @@ export function useUsingContext() {
     else
       ms.warning(t('chat.turnOffContext'))
   }
-
   return {
     usingContext,
     toggleUsingContext,

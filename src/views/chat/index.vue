@@ -14,6 +14,7 @@ import HeaderComponent from './components/Header/index.vue'
 import { HoverButton, SvgIcon } from '@/components/common'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { useChatStore, usePromptStore } from '@/store'
+import { useSettingStore } from '@/store/modules/settings'
 import { fetchChatAPIProcess } from '@/api'
 import { t } from '@/locales'
 
@@ -24,8 +25,8 @@ const openLongReply = import.meta.env.VITE_GLOB_OPEN_LONG_REPLY === 'true'
 const route = useRoute()
 const dialog = useDialog()
 const ms = useMessage()
-
 const chatStore = useChatStore()
+const settingStore = useSettingStore()
 
 useCopyCode()
 
@@ -72,14 +73,17 @@ function handleSubmit() {
 
 function getReqContext(): Chat.ContextRequest[] {
   let last5 = []
-  if (conversationList.value.length > 5) {
-    const startPos = conversationList.value.length - 5
-    last5 = conversationList.value.slice(startPos)
+  if (dataSources.value.length > 10) {
+    const startPos = dataSources.value.length - 10
+    last5 = dataSources.value.slice(startPos)
   }
   else {
-    last5 = conversationList.value
+    last5 = dataSources.value
   }
-  const q_context: Chat.ContextRequest | { role: string; content: string }[] = []
+  const q_context: Chat.ContextRequest | { role: string; content: string }[] = [{
+    role: 'system',
+    content: settingStore.systemMessage,
+  }]
   last5.forEach((item) => {
     if (item.text !== '' && item.text !== '暂时无法回答，请稍后再试。') {
       const maxContextLength = 300
@@ -116,8 +120,9 @@ async function onConversation() {
 
   const options: Chat.ConversationRequest = {
     conversationId: uuid,
-    questionType: usingContext.value ? 'chatWithContext' : '',
     msgId: fCreaetGuid(),
+    questionType: usingContext.value ? 'chatWithContext' : '',
+    stream: settingStore.stream,
   }
 
   addChat(
@@ -137,7 +142,7 @@ async function onConversation() {
   prompt.value = ''
 
   const lastContext = conversationList.value[conversationList.value.length - 1]?.conversationOptions
-
+  debugger
   if (lastContext && usingContext.value) {
     // options = { ...lastContext }
     options.context = getReqContext()
@@ -174,6 +179,7 @@ async function onConversation() {
             chunk = responseText.substring(lastIndex)
           try {
             const data = JSON.parse(chunk)
+            debugger
             updateChat(
               +uuid,
               dataSources.value.length - 1,
@@ -183,7 +189,11 @@ async function onConversation() {
                 inversion: false,
                 error: false,
                 loading: true,
-                conversationOptions: { conversationId: data.conversationId, parentMessageId: data.msgId },
+                conversationOptions: {
+                  conversationId: data.conversationId,
+                  parentMessageId: data.msgId,
+                  stream: data.stream,
+                },
                 requestOptions: { prompt: message, options: { ...options } },
               },
             )

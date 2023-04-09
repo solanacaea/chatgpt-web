@@ -104,4 +104,19 @@ export default {
     updatePwd: '請修改密碼',
     minSizePwd: '密碼長度不能少於6位',
   },
+  config: {
+    enableContext: '開啟上下文',
+    completeContext: '完整上下文',
+    enableStream: '流式處理',
+  },
+  login: {
+    failed: '登錄失敗',
+    missing: '請填寫完整信息',
+    wrong: '用戶名或密碼錯誤',
+    success: '登錄成功，即將進入系統',
+    loginBtn: '登錄',
+    placeholderUser: '請輸入用戶名',
+    placeholderPwd: '請輸入密碼',
+    logining: '登錄中...',
+  },
 }

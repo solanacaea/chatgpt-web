@@ -13,12 +13,20 @@ import { PageEnum } from '@/enums/pageEnum'
 import { websiteConfig } from '@/config/website.config'
 import { signin } from '@/api'
 import { useAuthStore } from '@/store'
-import { ACCESS_TOKEN } from '@/router/permission'
+import { ACCESS_TOKEN, ACCESS_TOKEN_USER } from '@/router/permission'
+import { t } from '@/locales'
 
 interface FormState {
   username: string
   password: string
 }
+interface LoginResponse {
+  tokenType: string
+  accessToken: string
+  status: string
+  message: string
+}
+
 const formRef = ref()
 const message = useMessage()
 const loading = ref(false)
@@ -29,8 +37,8 @@ const formInline = reactive({
   isCaptcha: false,
 })
 const rules = {
-  username: { required: true, message: '请输入用户名', trigger: 'blur' },
-  password: { required: true, message: '请输入密码', trigger: 'blur' },
+  username: { required: true, message: t('login.placeholderUser'), trigger: 'blur' },
+  password: { required: true, message: t('login.placeholderPwd'), trigger: 'blur' },
 }
 const router = useRouter()
 const route = useRoute()
@@ -39,21 +47,28 @@ const handleSubmit = (e: { preventDefault: () => void }) => {
   formRef.value.validate(async (errors: any) => {
     if (!errors) {
       const { username, password } = formInline
-      message.loading('登录中...')
+      message.loading(t('login.logining'))
       loading.value = true
       const params: FormState = {
         username,
         password,
       }
       try {
-        const { tokenType, accessToken } = await signin(params)
-        storage.set(ACCESS_TOKEN, `${tokenType} ${accessToken}`, new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
-
+        const resp: LoginResponse = await signin(params)
+        if (resp.status == 'failed') {
+          if (resp.message == 'moss_expired')
+            message.error('Moss账号已停用')
+          else
+            message.error(t('login.failed'))
+          return
+        }
+        storage.set(ACCESS_TOKEN, `${resp.tokenType} ${resp.accessToken}`, new Date().getTime() + 24 * 60 * 60 * 1000)
+        storage.set(ACCESS_TOKEN_USER, username)
         const authStore = useAuthStore()
-        authStore.setToken(accessToken)
+        authStore.setToken(resp.accessToken)
         message.destroyAll()
         const toPath = decodeURIComponent((route.query?.redirect || '/') as string)
-        message.success('登录成功，即将进入系统')
+        message.success(t('login.success'))
         if (route.name === LOGIN_NAME)
           router.replace('/')
         else router.replace(toPath)
@@ -69,16 +84,16 @@ const handleSubmit = (e: { preventDefault: () => void }) => {
       }
       catch (error) {
         if (error.response.status === 401)
-          message.error('用户名或密码错误')
+          message.error(t('login.wrong'))
         else
-          message.error('登录失败')
+          message.error(t('login.failed'))
       }
       finally {
         loading.value = false
       }
     }
     else {
-      message.error('请填写完整信息')
+      message.error(t('login.missing'))
     }
   })
 }
@@ -108,7 +123,7 @@ const handleSubmit = (e: { preventDefault: () => void }) => {
           :rules="rules"
         >
           <n-form-item path="username">
-            <n-input v-model:value="formInline.username" placeholder="请输入用户名">
+            <n-input v-model:value="formInline.username" :placeholder="t('login.placeholderUser')">
               <template #prefix>
                 <n-icon size="18" color="#808695">
                   <PersonOutline />
@@ -121,7 +136,7 @@ const handleSubmit = (e: { preventDefault: () => void }) => {
               v-model:value="formInline.password"
               type="password"
               showPasswordOn="click"
-              placeholder="请输入密码"
+              :placeholder="t('login.placeholderPwd')"
             >
               <template #prefix>
                 <n-icon size="18" color="#808695">
@@ -143,20 +158,29 @@ const handleSubmit = (e: { preventDefault: () => void }) => {
           <n-form-item>
             <n-button type="primary" @click="handleSubmit" size="large"
               :disabled="loading" :loading="loading" block>
-              登录
+              {{ $t('login.loginBtn') }}
             </n-button>
           </n-form-item>
-          <n-form-item class="default-color">
+          <!-- <n-form-item class="default-color">
             <div class="flex view-account-other">
               <div class="flex-initial">
-                <!-- <span>其它登录方式</span> -->
+                <span>其它登录方式</span>
               </div>
               <div class="flex-initial" style="margin-left: auto">
-                <!-- <a href="javascript:">注册账号</a> -->
+                <a href="javascript:">注册账号</a>
               </div>
             </div>
-          </n-form-item>
+          </n-form-item> -->
         </n-form>
+        <div style="display: flex; color: red;">
+          <div>
+            &emsp; Moss账号已停用，请尝试使用专属账号登录 <br/>
+            &emsp;&emsp; - 账号：姓名拼音或者UM拼音部分，不区分大小写<br/>
+            &emsp;&emsp; - 初始密码：123456 <br/>
+            &emsp; 首次登录会强制修改密码，修改后可正常使用。 <br/>
+            &emsp; 若未开通，请联系管理员申请专属账号。
+          </div>
+        </div>
       </div>
     </div>
 

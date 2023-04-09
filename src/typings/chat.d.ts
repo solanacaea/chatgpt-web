@@ -33,6 +33,7 @@ declare namespace Chat {
 		parentMessageId?: string
 		questionType?: string
 		msgId?: string
+		stream: boolean
 		context?: ContextRequest[]
 	}
 

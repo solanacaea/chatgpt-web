@@ -104,4 +104,19 @@ export default {
     updatePwd: '请修改密码',
     minSizePwd: '密码长度不能少于6位',
   },
+  config: {
+    enableContext: '开启上下文',
+    completeContext: '完整上下文',
+    enableStream: '流式处理',
+  },
+  login: {
+    failed: '登录失败',
+    missing: '请填写完整信息',
+    wrong: '用户名或密码错误',
+    success: '登录成功，即将进入系统',
+    loginBtn: '登录',
+    placeholderUser: '请输入用户名',
+    placeholderPwd: '请输入密码',
+    logining: '登录中...',
+  },
 }

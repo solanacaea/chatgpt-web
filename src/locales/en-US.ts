@@ -104,4 +104,19 @@ export default {
     updatePwd: 'Please change your password',
     minSizePwd: 'Password length must large than 6',
   },
+  config: {
+    enableContext: 'Enable Context',
+    completeContext: 'Complete Context',
+    enableStream: 'Stream Process',
+  },
+  login: {
+    failed: 'Loginn Failed',
+    missing: 'Missing info',
+    wrong: 'Incorrect username or password',
+    success: 'Entering system...',
+    loginBtn: 'Login',
+    placeholderUser: 'Please enter username',
+    placeholderPwd: 'Please enter password',
+    logining: 'Login...',
+  },
 }
