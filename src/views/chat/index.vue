@@ -142,7 +142,7 @@ async function onConversation() {
   prompt.value = ''
 
   const lastContext = conversationList.value[conversationList.value.length - 1]?.conversationOptions
-  debugger
+
   if (lastContext && usingContext.value) {
     // options = { ...lastContext }
     options.context = getReqContext()
@@ -179,7 +179,6 @@ async function onConversation() {
             chunk = responseText.substring(lastIndex)
           try {
             const data = JSON.parse(chunk)
-            debugger
             updateChat(
               +uuid,
               dataSources.value.length - 1,
@@ -279,6 +278,7 @@ async function onRegenerate(index: number) {
     conversationId: uuid,
     questionType: usingContext.value ? 'chatWithContext' : '',
     msgId: fCreaetGuid(),
+    stream: settingStore.stream,
   }
 
   if (requestOptions.options)
@@ -326,7 +326,11 @@ async function onRegenerate(index: number) {
                 inversion: false,
                 error: false,
                 loading: true,
-                conversationOptions: { conversationId: data.conversationId, parentMessageId: data.msgId },
+                conversationOptions: {
+                  conversationId: data.conversationId,
+                  parentMessageId: data.msgId,
+                  stream: settingStore.stream,
+                },
                 requestOptions: { prompt: message, ...options },
               },
             )
