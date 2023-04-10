@@ -15,7 +15,8 @@ import storage from 'store'
 
 interface FormState {
   username: string
-  password: string
+  prePassword: string
+  newPassword: string
 }
 
 const appStore = useAppStore()
@@ -105,7 +106,8 @@ async function updateUserPwd() {
 
     const params: FormState = {
       username: username.value,
-      password: newPassword.value,
+      prePassword: prePassword.value,
+      newPassword: newPassword.value,
     }
 
     const { status, message } = await updatePwd(params)
