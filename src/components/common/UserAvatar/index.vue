@@ -4,13 +4,14 @@ import { NAvatar } from 'naive-ui'
 import defaultAvatar from '@/assets/avatar.jpg'
 import { isString } from '@/utils/is'
 import { getRemoteState, setDefaultState } from '@/store/modules/user/helper'
-import { useUserStore } from '@/store'
+// import { useUserStore } from '@/store'
 import { t } from '@/locales'
 
 const remoteStore = await getRemoteState()
 setDefaultState(remoteStore)
-const userStore = useUserStore()
-const userInfo = computed(() => userStore.userInfo)
+// const userStore = useUserStore()
+// const userInfo = computed(() => userStore.userInfo)
+const userInfo = computed(() => remoteStore.userInfo)
 // const userInfo = userStore.userInfo
 </script>
 

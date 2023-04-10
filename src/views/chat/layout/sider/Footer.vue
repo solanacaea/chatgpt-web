@@ -4,7 +4,9 @@ import { HoverButton, SvgIcon, UserAvatar } from '@/components/common'
 import { ACCESS_TOKEN, ACCESS_TOKEN_USER } from '@/router/permission'
 import storage from 'store'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/store'
 
+const userStore = useUserStore()
 const router = useRouter()
 const Setting = defineAsyncComponent(() => import('@/components/common/Setting/index.vue'))
 const show = ref(false)
@@ -13,6 +15,7 @@ function logout(): void {
   storage.remove(ACCESS_TOKEN)
   storage.remove(ACCESS_TOKEN_USER)
   router.push('/login')
+  userStore.remove()
 }
 </script>
 

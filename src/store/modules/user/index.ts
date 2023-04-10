@@ -18,5 +18,15 @@ export const useUserStore = defineStore('user-store', {
     recordState() {
       setLocalState(this.$state)
     },
+
+    remove() {
+      this.userInfo = {
+        avatar: '',
+        username: '',
+        name: '',
+        description: '',
+        usage: '0/0',
+      }
+    },
   },
 })

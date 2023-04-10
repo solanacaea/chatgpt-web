@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { NAvatar } from 'naive-ui'
-import { useUserStore } from '@/store'
+import { defaultSetting } from '@/store/modules/user/helper'
 // import { getLocalState } from '@/store/modules/user/helper'
 import { isString } from '@/utils/is'
 import defaultAvatar from '@/assets/avatar.jpg'
@@ -12,8 +12,9 @@ interface Props {
 }
 defineProps<Props>()
 
-const userStore = useUserStore()
+// const userStore = useUserStore()
 // const userStore = await getLocalState()
+const userStore = defaultSetting()
 const userInfo = userStore.userInfo
 const avatar = computed(() => userInfo.avatar)
 </script>

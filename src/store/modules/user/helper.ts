@@ -13,7 +13,7 @@ export interface UserInfo {
 }
 
 export interface UserState {
-value: any
+  value: any
   userInfo: UserInfo
 }
 

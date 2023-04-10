@@ -3,6 +3,7 @@ import storage from 'store'
 import { useAuthStoreWithout } from '@/store/modules/auth'
 // import NProgress from 'nprogress'
 import { setUserToken } from '@/store/userToken'
+import { validteMe } from '@/api'
 
 // NProgress.configure({ showSpinner: false })
 export const ACCESS_TOKEN = 'Authorization'
@@ -12,11 +13,15 @@ export function setupPageGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {
     // NProgress.start()
     // const userToken = getUserToken()
-    const userToken = storage.get(ACCESS_TOKEN)
-    setUserToken(userToken)
+    let userToken = storage.get(ACCESS_TOKEN)
     const loginRoutePath = '/login'
     const authStore = useAuthStoreWithout()
-    // eslint-disable-next-line eqeqeq
+
+    const { status, message } = await validteMe()
+    if (status == 'failed') {
+      userToken = null
+    } 
+
     if (to.path != loginRoutePath && !userToken) {
       const loginRoutePathWithUser = `${loginRoutePath}?query1=${JSON.stringify(to.query)}&param1=${JSON.stringify(to.params)}`
       // console.log('loginRoutePathWithUser', loginRoutePathWithUser)
@@ -24,8 +29,12 @@ export function setupPageGuard(router: Router) {
       // NProgress.done()
     }
     else {
-      // console.log('loginRoutePathWithUser', 'success')
-      next()
+      if (to.path == loginRoutePath && userToken) {
+        next('/chat')
+      } else {
+        setUserToken(userToken)
+        next()
+      }
     }
     // const authStore = useAuthStoreWithout()
     // if (!authStore.session) {

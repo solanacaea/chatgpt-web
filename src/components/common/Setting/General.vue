@@ -4,7 +4,7 @@ import { NButton, NInput, NPopconfirm, NSelect, NText, useMessage } from 'naive-
 import type { Language, Theme } from '@/store/modules/app/helper'
 import { SvgIcon } from '@/components/common'
 import { useAppStore, useUserStore } from '@/store'
-import { getRemoteState, setDefaultState } from '@/store/modules/user/helper'
+import { getRemoteState, setDefaultState, defaultSetting } from '@/store/modules/user/helper'
 import { getCurrentDate } from '@/utils/functions'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
@@ -13,7 +13,8 @@ const appStore = useAppStore()
 const remoteStore = await getRemoteState()
 setDefaultState(remoteStore)
 
-const userStore = useUserStore()
+// const userStore = useUserStore()
+const userStore = defaultSetting()
 
 const { isMobile } = useBasicLayout()
 

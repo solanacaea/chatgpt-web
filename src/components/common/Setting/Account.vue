@@ -22,7 +22,7 @@ const appStore = useAppStore()
 // const remoteStore = await getRemoteState()
 // setDefaultState(remoteStore)
 
-const userStore = useUserStore()
+// const userStore = useUserStore()
 
 const { isMobile } = useBasicLayout()
 
@@ -111,7 +111,6 @@ async function updateUserPwd() {
     const { status, message } = await updatePwd(params)
     if (status == 'success') {
       ms.success(t('common.editSuccess'))
-      
     }
     else if (status == 'failed') {
       if (message == 'pwdWrong') {
