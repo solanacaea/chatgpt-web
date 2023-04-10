@@ -155,19 +155,19 @@ async function updateUserPwd() {
       <div class="flex items-center space-x-4">
         <span class="flex-shrink-0 w-[100px]">{{ $t('setting.pwdPre') }}</span>
         <div class="w-[200px]">
-          <NInput v-model:value="prePassword" type="password" :placeholder="ph1" />
+          <NInput v-model:value="prePassword" type="password" :placeholder="ph1" show-password-on="click" />
         </div>
       </div>
       <div class="flex items-center space-x-4">
         <span class="flex-shrink-0 w-[100px]">{{ $t('setting.pwdNew') }}</span>
         <div class="w-[200px]">
-          <NInput v-model:value="newPassword" type="password" :placeholder="ph2" />
+          <NInput v-model:value="newPassword" type="password" :placeholder="ph2" show-password-on="click" />
         </div>
       </div>
       <div class="flex items-center space-x-4">
         <span class="flex-shrink-0 w-[100px]">{{ $t('setting.pwdConfirm') }}</span>
         <div class="w-[200px]">
-          <NInput v-model:value="confirmPassword" type="password" :placeholder="ph3" />
+          <NInput v-model:value="confirmPassword" type="password" :placeholder="ph3" show-password-on="click" />
         </div>
       </div>
       <div class="flex items-center space-x-4">
