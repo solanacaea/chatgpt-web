@@ -5,7 +5,6 @@ import { setupPageGuard } from './permission'
 import { ChatLayout } from '@/views/chat/layout'
 
 const web_base = import.meta.env.VITE_APP_WEB_BASE_URL
-console.log('web_base', web_base)
 
 const routes: RouteRecordRaw[] = [
   {

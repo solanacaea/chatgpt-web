@@ -54,6 +54,12 @@ export function fetchVerify<T>(token: string) {
   })
 }
 
+export function validteMe<T>() {
+  return post<T>({
+    url: '/auth/validate',
+  })
+}
+
 export function signin<T>(params: any) {
   return post<T>({
     url: '/auth/signin',

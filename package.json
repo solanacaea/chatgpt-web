@@ -1,9 +1,9 @@
 {
   "name": "chatgpt-web",
-  "version": "2.10.9",
+  "version": "0.0.1",
   "private": false,
   "description": "ChatGPT Web",
-  "author": "ChenZhaoYu <chenzhaoyu1994@gmail.com>",
+  "author": "SB",
   "keywords": [
     "chatgpt-web",
     "chatgpt",
@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check build-only",
+    "build": "vite build",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",

@@ -51,5 +51,6 @@ export default defineConfig((env) => {
         ignoreTryCatch: false,
       },
     },
+    base: viteEnv.VITE_APP_WEB_BASE_URL,
   }
 })

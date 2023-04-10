@@ -174,11 +174,6 @@ const handleSubmit = (e: { preventDefault: () => void }) => {
         </n-form>
         <div style="display: flex; color: red;">
           <div>
-            &emsp; Moss账号已停用，请尝试使用专属账号登录 <br/>
-            &emsp;&emsp; - 账号：姓名拼音或者UM拼音部分，不区分大小写<br/>
-            &emsp;&emsp; - 初始密码：123456 <br/>
-            &emsp; 首次登录会强制修改密码，修改后可正常使用。 <br/>
-            &emsp; 若未开通，请联系管理员申请专属账号。
           </div>
         </div>
       </div>
@@ -186,7 +181,6 @@ const handleSubmit = (e: { preventDefault: () => void }) => {
 
     <div class="footer">
       <div class="copyright">
-        沪ICP备20005925号-1
       </div>
     </div>
   </div>
@@ -228,7 +222,7 @@ const handleSubmit = (e: { preventDefault: () => void }) => {
   }
   @media (min-width: 768px) {
     .view-account {
-      background-image: url('../../../assets/images/login.svg');
+      background-image: url('@/assets/images/login.svg');
       background-repeat: no-repeat;
       background-position: 50%;
       background-size: 100%;
