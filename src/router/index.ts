@@ -4,6 +4,8 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import { setupPageGuard } from './permission'
 import { ChatLayout } from '@/views/chat/layout'
 
+const web_base = import.meta.env.VITE_APP_WEB_BASE_URL
+
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -45,7 +47,7 @@ const routes: RouteRecordRaw[] = [
 ]
 
 export const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHashHistory(web_base),
   routes,
   scrollBehavior: () => ({ left: 0, top: 0 }),
 })
