@@ -6,8 +6,16 @@
 > 项目前端采用Express+vue3, 后端采用Java+Mysql。
 > 改进部分：使用账号/密码登录功能、权限认证、流量控制、请求并行度控制等。
 ### 界面
-[登录](./docs/pandaai-login.png)[电脑端](./docs/pc-ask.png)[移动端](./docs/mobile-ask.png)
-[配置1](./docs/config1.png)[配置2](./docs/config2.png)[配置3](./docs/config3.png)
+登录页：<img width="250" alt="登录" src="https://user-images.githubusercontent.com/43092492/232366307-257ec149-65a4-4267-80e4-0e6fdddf11a2.png">移动端：<img width="250" alt="移动端" src="https://user-images.githubusercontent.com/43092492/232366419-b3841f24-883b-4180-8219-b425e93f2a61.png">
+
+电脑端：<img width="600" alt="电脑端" src="https://user-images.githubusercontent.com/43092492/232366468-6d2664be-21b1-4546-a6b4-0bb96df080aa.png">
+
+配置项：<img width="258" alt="config1" src="https://user-images.githubusercontent.com/43092492/232367187-4c061859-31a1-42b6-9a01-d174c5a61837.png">
+<img width="200" alt="config2" src="https://user-images.githubusercontent.com/43092492/232367206-1c8e1e40-0174-4e4d-ac92-ffee793f7ec6.png">
+<img width="298" alt="config3" src="https://user-images.githubusercontent.com/43092492/232367233-e54d0ddc-4155-47a0-ad6e-2da7aa8149c6.png">
+
+### 服务端
+
 
 ## 参与贡献
 
