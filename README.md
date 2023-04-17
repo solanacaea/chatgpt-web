@@ -2,9 +2,9 @@
 
 > 声明：此项目只发布于 Github，基于 MIT 协议，免费且作为开源学习使用。并且不会有任何形式的卖号、付费服务，谨防受骗。
 
-## 介绍
+## 一、介绍
 > 项目前端采用Express+vue3, 后端采用Java+Mysql。
-### 界面
+### 1.界面
 登录页：<img width="250" alt="登录" src="https://user-images.githubusercontent.com/43092492/232366307-257ec149-65a4-4267-80e4-0e6fdddf11a2.png">移动端：<img width="250" alt="移动端" src="https://user-images.githubusercontent.com/43092492/232366419-b3841f24-883b-4180-8219-b425e93f2a61.png">
 
 电脑端：<img width="600" alt="电脑端" src="https://user-images.githubusercontent.com/43092492/232366468-6d2664be-21b1-4546-a6b4-0bb96df080aa.png">
@@ -13,9 +13,15 @@
 <img width="200" alt="config2" src="https://user-images.githubusercontent.com/43092492/232367206-1c8e1e40-0174-4e4d-ac92-ffee793f7ec6.png">
 <img width="298" alt="config3" src="https://user-images.githubusercontent.com/43092492/232367233-e54d0ddc-4155-47a0-ad6e-2da7aa8149c6.png">
 
-### 服务端
+### 2.服务端
 
-## 待实现路线
+## 二、部署方法
+### 1.前端
+
+### 2.后端
+
+
+## 三、待实现路线
 [✓] 账号密码登录 
 
 [✓] 账号信息修改
