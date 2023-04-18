@@ -14,10 +14,10 @@
 <img width="298" alt="config3" src="https://user-images.githubusercontent.com/43092492/232367233-e54d0ddc-4155-47a0-ad6e-2da7aa8149c6.png">
 
 ### 2.服务端
+待整理，comming soon....
 
 ## 二、部署方法
 ### 1.前端
-#### 前置要求
 
 #### Node
 
@@ -28,17 +28,17 @@ node -v
 ```
 
 #### PNPM
-如果你没有安装过 `pnpm`
-```shell
-npm install pnpm -g
-```
+如果你没有安装过 `pnpm` ```shell npm install pnpm -g```
 安装node的版本管理工具：```npm i -g n```
 安装稳定版：```n stable```
 升级到最新版本：```npm i -g npm```
 
 ### 2.后端
 #### SQL Scripts
+待整理，comming soon....
+
 #### Maven 
+待整理，comming soon....
 
 ## 三、待实现路线
 [✓] 账号密码登录 
