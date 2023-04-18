@@ -21,16 +21,15 @@
 
 #### Node
 
-`node` 需要 `^16 || ^18 || ^19` 版本（`node >= 14` 需要安装 [fetch polyfill](https://github.com/developit/unfetch#usage-as-a-polyfill)），使用 [nvm](https://github.com/nvm-sh/nvm) 可管理本地多个 `node` 版本
-
-```shell
-node -v
-```
+`node` 需要14以上版本: ```node -v, npm -v```
 
 #### PNPM
-如果你没有安装过 `pnpm` ```shell npm install pnpm -g```
+如果你没有安装过 `pnpm`： ```npm install pnpm -g```
+
 安装node的版本管理工具：```npm i -g n```
+
 安装稳定版：```n stable```
+
 升级到最新版本：```npm i -g npm```
 
 ### 2.后端
