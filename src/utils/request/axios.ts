@@ -2,7 +2,8 @@ import axios, { type AxiosResponse } from 'axios'
 import { useAuthStore } from '@/store'
 
 const service = axios.create({
-  baseURL: import.meta.env.VITE_GLOB_API_URL,
+  baseURL: import.meta.env.NODE_ENV === 'production' ? import.meta.env.VITE_APP_API_BASE_URL : import.meta.env.VITE_GLOB_API_URL,
+  timeout: 30000,
 })
 
 service.interceptors.request.use(
