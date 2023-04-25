@@ -71,6 +71,9 @@
 ## 感谢
 [ChenZhaoYu](https://github.com/Chanzhaoyu/chatgpt-web)
 
+https://github.com/Grt1228/chatgpt-java
+
+OpenAI：https://openai.com/
 
 ## License
 MIT © [Solanacaea](./license)
