@@ -14,6 +14,10 @@
 <img width="298" alt="config3" src="https://user-images.githubusercontent.com/43092492/232367233-e54d0ddc-4155-47a0-ad6e-2da7aa8149c6.png">
 
 ### 2.服务端
+
+后端代码在这里：
+https://github.com/solanacaea/chatgpt/tree/main/server
+
 待整理，comming soon....
 
 ## 二、部署方法
