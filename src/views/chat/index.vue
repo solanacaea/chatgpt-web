@@ -142,10 +142,11 @@ async function onConversation() {
   prompt.value = ''
 
   const lastContext = conversationList.value[conversationList.value.length - 1]?.conversationOptions
-
-  if (lastContext && usingContext.value) {
-    // options = { ...lastContext }
+  if (usingContext.value) {
+    // if (lastContext && usingContext.value) {
+      // options = { ...lastContext }
     options.context = getReqContext()
+    // }
   }
 
   addChat(
