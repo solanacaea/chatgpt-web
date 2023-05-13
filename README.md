@@ -14,6 +14,10 @@
 <img width="298" alt="config3" src="https://user-images.githubusercontent.com/43092492/232367233-e54d0ddc-4155-47a0-ad6e-2da7aa8149c6.png">
 
 ### 2.服务端
+
+后端代码在这里：
+https://github.com/solanacaea/chatgpt/tree/main/server
+
 待整理，comming soon....
 
 ## 二、部署方法
@@ -44,6 +48,8 @@
 
 [✓] 账号信息修改
 
+[✗] 微信授权登录
+
 [✗] Email注册、登录、修改密码
 
 [✗] 手机验证码注册、登录、修改密码
@@ -54,6 +60,11 @@
 
 [✗] 问答优化
 
+## 有bug欢迎朋友们指出，互相学习，所有咨询全部免费。
+一起探讨ChatGPT和其它大模型<br/>项目产品开发交流 | 群失效关注公众号恢复：胖达AI小助手 | 个人微信
+---|---|---
+<img src="https://user-images.githubusercontent.com/43092492/234168026-79dd9a90-18a5-4897-aea1-9b3eb40af796.jpeg" width="250" alt="二维码" />  | <img src="https://user-images.githubusercontent.com/43092492/234168058-a288c033-d094-4b34-a25e-f4fecdae93aa.jpeg" width="250" alt="二维码" /> | <img src="https://user-images.githubusercontent.com/43092492/234168074-77e8fa88-9a9c-4373-92d6-c1ac79166b64.jpeg" width="220" height="300" alt="二维码" />
+---
 
 ## 参与贡献
 
@@ -64,6 +75,9 @@
 ## 感谢
 [ChenZhaoYu](https://github.com/Chanzhaoyu/chatgpt-web)
 
+https://github.com/Grt1228/chatgpt-java
+
+OpenAI：https://openai.com/
 
 ## License
 MIT © [Solanacaea](./license)
